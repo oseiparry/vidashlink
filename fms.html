@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDASH LINK FASHION - Customer Management</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="VIDASH FASHION">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVklEQVNIIExJTksgRkFTSElPTiIsInNob3J0X25hbWUiOiJWSURBU0giLCJzdGFydF91cmwiOiIvIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiIzYzNjZmMSIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBME9EQWdORGd3SWo0OGNtVmpkQ0IzYVdSMGFEMGlORGd3SWlCb1pXbG5hSFE5SWpRNE1DSWdabWxzYkQwaUl6WXpOalptTVNJdlBqeDBaWGgwSUhnOUlqSTBNQ0lnZVQwaU1qUXdJaUJtYVd4c1BTSWpabVptSWlCbWIyNTBMWE5wZW1VOUlqUXdJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0lnZEdWNGRDMWhibU5vYjNJOUltMXBaR1JzWlNJK1ZrbEVRVk5JSUVaQlUwaEpUMDQ4TDNSbGVIUStQQzl6ZG1jKyIsInNpemVzIjoiNDgweDQ4MCIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#ec4899',
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.1); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        /* PWA Install Button */
+        .install-prompt {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6366f1;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .install-prompt:hover {
+            background: #5856eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Install App Prompt -->
+    <div id="installPrompt" class="install-prompt">
+        📱 Install App
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-2xl">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">VIDASH LINK FASHION</h1>
+                        <p class="text-white text-opacity-80 text-sm">Customer Management System</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="showAddCustomer()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Add Customer</span>
+                    </button>
+                    <button onclick="logout()" class="bg-red-500 bg-opacity-80 hover:bg-opacity-100 px-4 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2" title="Logout">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Total Customers</p>
+                        <p class="text-3xl font-bold text-gray-800" id="totalCustomers">0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">Pending Payments</p>
+                        <p class="text-3xl font-bold text-gray-800" id="pendingPayments">0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-500 text-sm font-medium">This Month</p>
+                        <p class="text-3xl font-bold text-gray-800" id="monthlyCustomers">0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-1">
+                    <input type="text" id="searchInput" placeholder="Search customers..." class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
+                </div>
+                <select id="statusFilter" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                    <option value="">All Customers</option>
+                    <option value="pending">Pending Payment</option>
+                    <option value="paid">Fully Paid</option>
+                </select>
+                <button onclick="searchCustomers()" class="bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Customer List -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800">Customer Database</h2>
+            </div>
+            <div id="customerList" class="divide-y divide-gray-200">
+                <div class="p-8 text-center text-gray-500">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                    </svg>
+                    <p class="text-lg font-medium">No customers yet</p>
+                    <p class="text-sm">Add your first customer to get started</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add/Edit Customer Modal -->
+    <div id="addCustomerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-800">Add New Customer</h3>
+                    <button onclick="hideAddCustomer()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <form id="customerForm" class="p-6 space-y-6">
+                <!-- Personal Information -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+                            <input type="text" name="fullName" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                            <input type="text" name="location" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="City, State or Address">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Body Measurements -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Body Measurements (inches)</h4>
+                    
+                    <!-- Bust & Chest Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Bust & Chest</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Over-Bust</label>
+                                <input type="number" name="overBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Breast</label>
+                                <input type="number" name="breast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Under Breast</label>
+                                <input type="number" name="underBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Across Chest</label>
+                                <input type="number" name="acrossChest" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Nip</label>
+                                <input type="number" name="nipToNip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bra Cup Size</label>
+                                <input type="text" name="braCupSize" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="e.g. 34C">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shoulder Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Shoulder & Back</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Shoulder</label>
+                                <input type="number" name="shoulderToShoulder" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Across Back</label>
+                                <input type="number" name="acrossBack" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Neck</label>
+                                <input type="number" name="neck" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waist & Hip Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Waist & Hip</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Upper Waist</label>
+                                <input type="number" name="upperWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Waist</label>
+                                <input type="number" name="waist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Lower Waist</label>
+                                <input type="number" name="lowerWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Hip</label>
+                                <input type="number" name="hip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Buttocks Breath</label>
+                                <input type="number" name="buttocksBreath" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Length Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Length Measurements</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Blouse Length Circumference</label>
+                                <input type="number" name="blouseLengthCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Over-Bust</label>
+                                <input type="number" name="shoulderToOverBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Nipple</label>
+                                <input type="number" name="shoulderToNipple" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Under-Breast</label>
+                                <input type="number" name="shoulderToUnderBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Short D Length</label>
+                                <input type="number" name="shoulderToShortDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Long D Length</label>
+                                <input type="number" name="shoulderToLongDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Waist</label>
+                                <input type="number" name="shoulderToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Cleavage</label>
+                                <input type="number" name="shoulderToCleavage" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Back to Waist</label>
+                                <input type="number" name="backToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Back to Blouse</label>
+                                <input type="number" name="backToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Skirt Length</label>
+                                <input type="number" name="skirtLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arm & Hand Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Arm & Hand</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Arm Hole to Waist</label>
+                                <input type="number" name="armHoleToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Arm Hole to Blouse</label>
+                                <input type="number" name="armHoleToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Arm Circumference</label>
+                                <input type="number" name="armCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Arm to Wrist</label>
+                                <input type="number" name="armToWrist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sleeve Length</label>
+                                <input type="number" name="sleeveLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lower Body Measurements -->
+                    <div class="mb-6">
+                        <h5 class="text-md font-medium text-gray-700 mb-3">Lower Body</h5>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Under-Bust</label>
+                                <input type="number" name="nipToUnderBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Blouse Length</label>
+                                <input type="number" name="nipToBlouseLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Waist to Hip</label>
+                                <input type="number" name="waistToHip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Waist to Calf</label>
+                                <input type="number" name="waistToCalf" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Knee Circumference</label>
+                                <input type="number" name="kneeCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ankle</label>
+                                <input type="number" name="ankle" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Information -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Payment Information</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Total Amount</label>
+                            <input type="number" name="totalAmount" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="0.00" oninput="calculateRemaining()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount Paid</label>
+                            <input type="number" name="amountPaid" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="0.00" oninput="calculateRemaining()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount Remaining</label>
+                            <input type="number" name="amountRemaining" step="0.01" readonly class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-600 outline-none" placeholder="0.00">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Details -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Additional Details</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Style</label>
+                            <select name="preferredStyle" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <option value="">Select style...</option>
+                                <option value="casual">Casual</option>
+                                <option value="formal">Formal</option>
+                                <option value="business">Business</option>
+                                <option value="traditional">Traditional</option>
+                                <option value="modern">Modern</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Special Notes</label>
+                            <textarea name="notes" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none resize-none" placeholder="Any special requirements or notes..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                    <button type="button" onclick="hideAddCustomer()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
+                        Cancel
+                    </button>
+                    <button type="submit" class="flex-1 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                        Save Customer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="customerDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-800">Customer Details</h3>
+                    <button onclick="hideCustomerDetails()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="customerDetailsContent" class="p-6">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-800">Process Payment</h3>
+                    <button onclick="hideCheckout()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <div id="checkoutContent">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="hideCheckout()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
+                        Cancel
+                    </button>
+                    <button onclick="completeCheckout()" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                        Complete Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
+                <p class="text-gray-600 mb-6">Please enter your credentials to access the customer management system</p>
+                
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <input type="text" id="username" placeholder="Username" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                    </div>
+                    <div>
+                        <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                    </div>
+                    <div id="loginError" class="text-red-600 text-sm hidden">Invalid username or password</div>
+                    <button type="submit" class="w-full bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                        Login to Admin Panel
+                    </button>
+                </form>
+                
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <p class="text-xs text-gray-500">VIDASH LINK FASHION - Secure Admin Portal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // PWA Installation
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'block';
+        });
+
+        installPrompt.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+
+        // Hide install prompt if already installed
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        // Authentication system
+        const ADMIN_USERNAME = 'efuavida';
+        const ADMIN_PASSWORD = 'efuavida';
+        let isAuthenticated = false;
+
+        // Customer data storage
+        let customers = JSON.parse(localStorage.getItem('vidashCustomers')) || [];
+        let currentCheckoutCustomer = null;
+        
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthentication();
+            
+            // Add login form handler
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Add form submission handler
+            document.getElementById('customerForm').addEventListener('submit', handleAddCustomer);
+            
+            // Add search functionality
+            document.getElementById('searchInput').addEventListener('input', searchCustomers);
+            document.getElementById('statusFilter').addEventListener('change', searchCustomers);
+        });
+
+        // Authentication functions
+        function checkAuthentication() {
+            const savedAuth = localStorage.getItem('vidashAdminAuth');
+            const authData = savedAuth ? JSON.parse(savedAuth) : null;
+            
+            // Check if authentication is valid and not expired (24 hours)
+            if (authData && authData.timestamp && (Date.now() - authData.timestamp < 24 * 60 * 60 * 1000)) {
+                isAuthenticated = true;
+                showMainApp();
+            } else {
+                showLoginModal();
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+                isAuthenticated = true;
+                
+                // Save authentication with timestamp
+                localStorage.setItem('vidashAdminAuth', JSON.stringify({
+                    authenticated: true,
+                    timestamp: Date.now()
+                }));
+                
+                showMainApp();
+                document.getElementById('loginError').classList.add('hidden');
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+                document.getElementById('password').value = '';
+            }
+        }
+
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            document.querySelector('header').style.display = 'none';
+            document.querySelector('main').style.display = 'none';
+        }
+
+        function showMainApp() {
+            document.getElementById('loginModal').classList.add('hidden');
+            document.querySelector('header').style.display = 'block';
+            document.querySelector('main').style.display = 'block';
+            updateStats();
+            renderCustomers();
+        }
+
+        function logout() {
+            isAuthenticated = false;
+            localStorage.removeItem('vidashAdminAuth');
+            showLoginModal();
+        }
+
+        // Show/hide modals
+        function showAddCustomer() {
+            // Reset form for new customer
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerForm').removeAttribute('data-editing-id');
+            document.querySelector('#addCustomerModal h3').textContent = 'Add New Customer';
+            document.querySelector('#customerForm button[type="submit"]').textContent = 'Save Customer';
+            
+            document.getElementById('addCustomerModal').classList.remove('hidden');
+            document.getElementById('addCustomerModal').classList.add('flex');
+        }
+
+        function hideAddCustomer() {
+            document.getElementById('addCustomerModal').classList.add('hidden');
+            document.getElementById('addCustomerModal').classList.remove('flex');
+            document.getElementById('customerForm').reset();
+            document.getElementById('customerForm').removeAttribute('data-editing-id');
+        }
+
+        function showCustomerDetails(customerId) {
+            const customer = customers.find(c => c.id === customerId);
+            if (!customer) return;
+
+            const hasOutstandingBalance = parseFloat(customer.amountRemaining || 0) > 0;
+
+            const content = `
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-primary">${customer.fullName.charAt(0)}</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-800">${customer.fullName}</h4>
+                            <p class="text-gray-600">${customer.phone}</p>
+                            ${customer.location ? `<p class="text-gray-600">${customer.location}</p>` : ''}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-3">Measurements</h5>
+                        
+                        ${(customer.overBust || customer.breast || customer.underBreast || customer.acrossChest || customer.nipToNip || customer.braCupSize) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Bust & Chest</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.overBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Over-Bust</span><p class="font-semibold">${customer.overBust}"</p></div>` : ''}
+                                ${customer.breast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Breast</span><p class="font-semibold">${customer.breast}"</p></div>` : ''}
+                                ${customer.underBreast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Under Breast</span><p class="font-semibold">${customer.underBreast}"</p></div>` : ''}
+                                ${customer.acrossChest ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Across Chest</span><p class="font-semibold">${customer.acrossChest}"</p></div>` : ''}
+                                ${customer.nipToNip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Nip</span><p class="font-semibold">${customer.nipToNip}"</p></div>` : ''}
+                                ${customer.braCupSize ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Bra Cup Size</span><p class="font-semibold">${customer.braCupSize}</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${(customer.shoulderToShoulder || customer.acrossBack || customer.neck) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Shoulder & Back</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.shoulderToShoulder ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Shoulder</span><p class="font-semibold">${customer.shoulderToShoulder}"</p></div>` : ''}
+                                ${customer.acrossBack ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Across Back</span><p class="font-semibold">${customer.acrossBack}"</p></div>` : ''}
+                                ${customer.neck ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Neck</span><p class="font-semibold">${customer.neck}"</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${(customer.upperWaist || customer.waist || customer.lowerWaist || customer.hip || customer.buttocksBreath) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Waist & Hip</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.upperWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Upper Waist</span><p class="font-semibold">${customer.upperWaist}"</p></div>` : ''}
+                                ${customer.waist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist</span><p class="font-semibold">${customer.waist}"</p></div>` : ''}
+                                ${customer.lowerWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Lower Waist</span><p class="font-semibold">${customer.lowerWaist}"</p></div>` : ''}
+                                ${customer.hip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Hip</span><p class="font-semibold">${customer.hip}"</p></div>` : ''}
+                                ${customer.buttocksBreath ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Buttocks Breath</span><p class="font-semibold">${customer.buttocksBreath}"</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${(customer.blouseLengthCircumference || customer.shoulderToOverBust || customer.shoulderToNipple || customer.shoulderToUnderBreast || customer.shoulderToShortDLength || customer.shoulderToLongDLength || customer.shoulderToWaist || customer.shoulderToCleavage || customer.backToWaist || customer.backToBlouse || customer.skirtLength) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Length Measurements</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.blouseLengthCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Blouse Length Circumference</span><p class="font-semibold">${customer.blouseLengthCircumference}"</p></div>` : ''}
+                                ${customer.shoulderToOverBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Over-Bust</span><p class="font-semibold">${customer.shoulderToOverBust}"</p></div>` : ''}
+                                ${customer.shoulderToNipple ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Nipple</span><p class="font-semibold">${customer.shoulderToNipple}"</p></div>` : ''}
+                                ${customer.shoulderToUnderBreast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Under-Breast</span><p class="font-semibold">${customer.shoulderToUnderBreast}"</p></div>` : ''}
+                                ${customer.shoulderToShortDLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Short D Length</span><p class="font-semibold">${customer.shoulderToShortDLength}"</p></div>` : ''}
+                                ${customer.shoulderToLongDLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Long D Length</span><p class="font-semibold">${customer.shoulderToLongDLength}"</p></div>` : ''}
+                                ${customer.shoulderToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Waist</span><p class="font-semibold">${customer.shoulderToWaist}"</p></div>` : ''}
+                                ${customer.shoulderToCleavage ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Cleavage</span><p class="font-semibold">${customer.shoulderToCleavage}"</p></div>` : ''}
+                                ${customer.backToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Back to Waist</span><p class="font-semibold">${customer.backToWaist}"</p></div>` : ''}
+                                ${customer.backToBlouse ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Back to Blouse</span><p class="font-semibold">${customer.backToBlouse}"</p></div>` : ''}
+                                ${customer.skirtLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Skirt Length</span><p class="font-semibold">${customer.skirtLength}"</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${(customer.armHoleToWaist || customer.armHoleToBlouse || customer.armCircumference || customer.armToWrist || customer.sleeveLength) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Arm & Hand</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.armHoleToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Hole to Waist</span><p class="font-semibold">${customer.armHoleToWaist}"</p></div>` : ''}
+                                ${customer.armHoleToBlouse ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Hole to Blouse</span><p class="font-semibold">${customer.armHoleToBlouse}"</p></div>` : ''}
+                                ${customer.armCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Circumference</span><p class="font-semibold">${customer.armCircumference}"</p></div>` : ''}
+                                ${customer.armToWrist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm to Wrist</span><p class="font-semibold">${customer.armToWrist}"</p></div>` : ''}
+                                ${customer.sleeveLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Sleeve Length</span><p class="font-semibold">${customer.sleeveLength}"</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${(customer.nipToUnderBust || customer.nipToBlouseLength || customer.waistToHip || customer.waistToCalf || customer.kneeCircumference || customer.ankle) ? `
+                        <div class="mb-4">
+                            <h6 class="text-md font-medium text-gray-700 mb-2">Lower Body</h6>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                ${customer.nipToUnderBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Under-Bust</span><p class="font-semibold">${customer.nipToUnderBust}"</p></div>` : ''}
+                                ${customer.nipToBlouseLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Blouse Length</span><p class="font-semibold">${customer.nipToBlouseLength}"</p></div>` : ''}
+                                ${customer.waistToHip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist to Hip</span><p class="font-semibold">${customer.waistToHip}"</p></div>` : ''}
+                                ${customer.waistToCalf ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist to Calf</span><p class="font-semibold">${customer.waistToCalf}"</p></div>` : ''}
+                                ${customer.kneeCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Knee Circumference</span><p class="font-semibold">${customer.kneeCircumference}"</p></div>` : ''}
+                                ${customer.ankle ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Ankle</span><p class="font-semibold">${customer.ankle}"</p></div>` : ''}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        ${!(customer.overBust || customer.breast || customer.underBreast || customer.acrossChest || customer.nipToNip || customer.braCupSize || customer.shoulderToShoulder || customer.acrossBack || customer.neck || customer.upperWaist || customer.waist || customer.lowerWaist || customer.hip || customer.buttocksBreath || customer.blouseLengthCircumference || customer.shoulderToOverBust || customer.shoulderToNipple || customer.shoulderToUnderBreast || customer.shoulderToShortDLength || customer.shoulderToLongDLength || customer.shoulderToWaist || customer.shoulderToCleavage || customer.backToWaist || customer.backToBlouse || customer.skirtLength || customer.armHoleToWaist || customer.armHoleToBlouse || customer.armCircumference || customer.armToWrist || customer.sleeveLength || customer.nipToUnderBust || customer.nipToBlouseLength || customer.waistToHip || customer.waistToCalf || customer.kneeCircumference || customer.ankle) ? `
+                        <p class="text-gray-500 text-center py-4">No measurements recorded</p>
+                        ` : ''}
+                    </div>
+
+                    ${(customer.totalAmount || customer.amountPaid) ? `
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-3">Payment Information</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            ${customer.totalAmount ? `<div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><span class="text-sm text-blue-600 font-medium">Total Amount</span><p class="text-xl font-bold text-blue-800">$${parseFloat(customer.totalAmount).toFixed(2)}</p></div>` : ''}
+                            ${customer.amountPaid ? `<div class="bg-green-50 p-4 rounded-lg border border-green-200"><span class="text-sm text-green-600 font-medium">Amount Paid</span><p class="text-xl font-bold text-green-800">$${parseFloat(customer.amountPaid).toFixed(2)}</p></div>` : ''}
+                            ${customer.amountRemaining ? `<div class="bg-orange-50 p-4 rounded-lg border border-orange-200"><span class="text-sm text-orange-600 font-medium">Amount Remaining</span><p class="text-xl font-bold text-orange-800">$${parseFloat(customer.amountRemaining).toFixed(2)}</p></div>` : ''}
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    ${customer.preferredStyle ? `
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">Preferred Style</h5>
+                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm font-medium capitalize">${customer.preferredStyle}</span>
+                    </div>
+                    ` : ''}
+
+                    ${customer.notes ? `
+                    <div>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-2">Notes</h5>
+                        <p class="text-gray-600 bg-gray-50 p-4 rounded-lg">${customer.notes}</p>
+                    </div>
+                    ` : ''}
+
+                    <div class="flex gap-3 pt-4">
+                        <button onclick="editCustomer('${customer.id}')" class="flex-1 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                            Edit Customer
+                        </button>
+                        ${hasOutstandingBalance ? `
+                        <button onclick="showCheckout('${customer.id}')" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                            Process Payment
+                        </button>
+                        ` : ''}
+                        <button onclick="deleteCustomer('${customer.id}')" class="px-6 py-3 border border-red-300 text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('customerDetailsContent').innerHTML = content;
+            document.getElementById('customerDetailsModal').classList.remove('hidden');
+            document.getElementById('customerDetailsModal').classList.add('flex');
+        }
+
+        function hideCustomerDetails() {
+            document.getElementById('customerDetailsModal').classList.add('hidden');
+            document.getElementById('customerDetailsModal').classList.remove('flex');
+        }
+
+        function showCheckout(customerId) {
+            const customer = customers.find(c => c.id === customerId);
+            if (!customer) return;
+
+            currentCheckoutCustomer = customer;
+            const remainingAmount = parseFloat(customer.amountRemaining || 0);
+
+            const content = `
+                <div class="text-center mb-6">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-800">${customer.fullName}</h4>
+                    <p class="text-gray-600">${customer.phone}</p>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-600">Total Amount:</span>
+                        <span class="font-semibold">$${parseFloat(customer.totalAmount || 0).toFixed(2)}</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-600">Already Paid:</span>
+                        <span class="font-semibold text-green-600">$${parseFloat(customer.amountPaid || 0).toFixed(2)}</span>
+                    </div>
+                    <div class="border-t pt-2 mt-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800 font-medium">Amount Due:</span>
+                            <span class="font-bold text-xl text-orange-600">$${remainingAmount.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Payment Amount</label>
+                    <input type="number" id="paymentAmount" step="0.01" min="0" max="${remainingAmount}" value="${remainingAmount}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none">
+                    <p class="text-sm text-gray-500 mt-1">Enter the amount being paid (up to $${remainingAmount.toFixed(2)})</p>
+                </div>
+            `;
+
+            document.getElementById('checkoutContent').innerHTML = content;
+            document.getElementById('checkoutModal').classList.remove('hidden');
+            document.getElementById('checkoutModal').classList.add('flex');
+        }
+
+        function hideCheckout() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+            document.getElementById('checkoutModal').classList.remove('flex');
+            currentCheckoutCustomer = null;
+        }
+
+        function completeCheckout() {
+            if (!currentCheckoutCustomer) return;
+
+            const paymentAmount = parseFloat(document.getElementById('paymentAmount').value || 0);
+            const currentPaid = parseFloat(currentCheckoutCustomer.amountPaid || 0);
+            const newAmountPaid = currentPaid + paymentAmount;
+            const totalAmount = parseFloat(currentCheckoutCustomer.totalAmount || 0);
+            const newRemaining = Math.max(0, totalAmount - newAmountPaid);
+
+            // Update customer record
+            const customerIndex = customers.findIndex(c => c.id === currentCheckoutCustomer.id);
+            if (customerIndex !== -1) {
+                customers[customerIndex].amountPaid = newAmountPaid.toFixed(2);
+                customers[customerIndex].amountRemaining = newRemaining.toFixed(2);
+                customers[customerIndex].lastPaymentDate = new Date().toISOString();
+                
+                localStorage.setItem('vidashCustomers', JSON.stringify(customers));
+                
+                hideCheckout();
+                hideCustomerDetails();
+                updateStats();
+                renderCustomers();
+                
+                // Show success message
+                alert(`Payment of $${paymentAmount.toFixed(2)} processed successfully!${newRemaining === 0 ? ' Customer is now fully paid.' : ` Remaining balance: $${newRemaining.toFixed(2)}`}`);
+            }
+        }
+
+        // Handle form submission
+        function handleAddCustomer(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            const editingId = e.target.dataset.editingId;
+            
+            const customerData = {
+                fullName: formData.get('fullName'),
+                phone: formData.get('phone'),
+                location: formData.get('location'),
+                // Bust & Chest Measurements
+                overBust: formData.get('overBust'),
+                breast: formData.get('breast'),
+                underBreast: formData.get('underBreast'),
+                acrossChest: formData.get('acrossChest'),
+                nipToNip: formData.get('nipToNip'),
+                braCupSize: formData.get('braCupSize'),
+                // Shoulder & Back Measurements
+                shoulderToShoulder: formData.get('shoulderToShoulder'),
+                acrossBack: formData.get('acrossBack'),
+                neck: formData.get('neck'),
+                // Waist & Hip Measurements
+                upperWaist: formData.get('upperWaist'),
+                waist: formData.get('waist'),
+                lowerWaist: formData.get('lowerWaist'),
+                hip: formData.get('hip'),
+                buttocksBreath: formData.get('buttocksBreath'),
+                // Length Measurements
+                blouseLengthCircumference: formData.get('blouseLengthCircumference'),
+                shoulderToOverBust: formData.get('shoulderToOverBust'),
+                shoulderToNipple: formData.get('shoulderToNipple'),
+                shoulderToUnderBreast: formData.get('shoulderToUnderBreast'),
+                shoulderToShortDLength: formData.get('shoulderToShortDLength'),
+                shoulderToLongDLength: formData.get('shoulderToLongDLength'),
+                shoulderToWaist: formData.get('shoulderToWaist'),
+                shoulderToCleavage: formData.get('shoulderToCleavage'),
+                backToWaist: formData.get('backToWaist'),
+                backToBlouse: formData.get('backToBlouse'),
+                skirtLength: formData.get('skirtLength'),
+                // Arm & Hand Measurements
+                armHoleToWaist: formData.get('armHoleToWaist'),
+                armHoleToBlouse: formData.get('armHoleToBlouse'),
+                armCircumference: formData.get('armCircumference'),
+                armToWrist: formData.get('armToWrist'),
+                sleeveLength: formData.get('sleeveLength'),
+                // Lower Body Measurements
+                nipToUnderBust: formData.get('nipToUnderBust'),
+                nipToBlouseLength: formData.get('nipToBlouseLength'),
+                waistToHip: formData.get('waistToHip'),
+                waistToCalf: formData.get('waistToCalf'),
+                kneeCircumference: formData.get('kneeCircumference'),
+                ankle: formData.get('ankle'),
+                // Payment & Additional Info
+                totalAmount: formData.get('totalAmount'),
+                amountPaid: formData.get('amountPaid'),
+                amountRemaining: formData.get('amountRemaining'),
+                preferredStyle: formData.get('preferredStyle'),
+                notes: formData.get('notes')
+            };
+
+            if (editingId) {
+                // Update existing customer
+                const customerIndex = customers.findIndex(c => c.id === editingId);
+                if (customerIndex !== -1) {
+                    customers[customerIndex] = { ...customers[customerIndex], ...customerData };
+                }
+            } else {
+                // Add new customer
+                const customer = {
+                    id: Date.now().toString(),
+                    ...customerData,
+                    dateAdded: new Date().toISOString()
+                };
+                customers.push(customer);
+            }
+
+            localStorage.setItem('vidashCustomers', JSON.stringify(customers));
+            
+            hideAddCustomer();
+            updateStats();
+            renderCustomers();
+        }
+
+        // Edit customer
+        function editCustomer(customerId) {
+            const customer = customers.find(c => c.id === customerId);
+            if (!customer) return;
+
+            // Populate the form with existing data
+            const form = document.getElementById('customerForm');
+            Object.keys(customer).forEach(key => {
+                const input = form.querySelector(`[name="${key}"]`);
+                if (input && key !== 'id' && key !== 'dateAdded') {
+                    input.value = customer[key] || '';
+                }
+            });
+
+            // Change form title and button text
+            document.querySelector('#addCustomerModal h3').textContent = 'Edit Customer';
+            document.querySelector('#customerForm button[type="submit"]').textContent = 'Update Customer';
+            
+            // Store the customer ID for updating
+            form.dataset.editingId = customerId;
+            
+            hideCustomerDetails();
+            showAddCustomer();
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalCustomers').textContent = customers.length;
+            
+            const thisMonth = new Date().getMonth();
+            const thisYear = new Date().getFullYear();
+            const monthlyCount = customers.filter(customer => {
+                const customerDate = new Date(customer.dateAdded);
+                return customerDate.getMonth() === thisMonth && customerDate.getFullYear() === thisYear;
+            }).length;
+            
+            const pendingCount = customers.filter(customer => 
+                parseFloat(customer.amountRemaining || 0) > 0
+            ).length;
+            
+            document.getElementById('monthlyCustomers').textContent = monthlyCount;
+            document.getElementById('pendingPayments').textContent = pendingCount;
+        }
+
+        // Render customer list
+        function renderCustomers(customersToRender = customers) {
+            const customerList = document.getElementById('customerList');
+            
+            if (customersToRender.length === 0) {
+                customerList.innerHTML = `
+                    <div class="p-8 text-center text-gray-500">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                        <p class="text-lg font-medium">No customers found</p>
+                        <p class="text-sm">Try adjusting your search or add a new customer</p>
+                    </div>
+                `;
+                return;
+            }
+
+            customerList.innerHTML = customersToRender.map(customer => {
+                const remainingAmount = parseFloat(customer.amountRemaining || 0);
+                const isPaid = remainingAmount === 0 && parseFloat(customer.totalAmount || 0) > 0;
+                
+                return `
+                <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showCustomerDetails('${customer.id}')">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
+                                <span class="text-lg font-bold text-primary">${customer.fullName.charAt(0)}</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">${customer.fullName}</h4>
+                                <p class="text-gray-600 text-sm">${customer.phone}</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    ${customer.preferredStyle ? `<span class="inline-block bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs capitalize">${customer.preferredStyle}</span>` : ''}
+                                    ${customer.totalAmount ? `<span class="inline-block ${isPaid ? 'bg-green-100 text-green-600' : remainingAmount > 0 ? 'bg-orange-100 text-orange-600' : 'bg-gray-100 text-gray-600'} px-2 py-1 rounded text-xs font-medium">${isPaid ? 'Paid in Full' : remainingAmount > 0 ? `$${remainingAmount.toFixed(2)} Due` : 'No Payment'}</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-500">Added</p>
+                            <p class="text-sm font-medium text-gray-700">${new Date(customer.dateAdded).toLocaleDateString()}</p>
+                            ${remainingAmount > 0 ? `<button onclick="event.stopPropagation(); showCheckout('${customer.id}')" class="mt-2 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-medium transition-all">Pay Now</button>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        // Search functionality
+        function searchCustomers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            
+            let filteredCustomers = customers.filter(customer => 
+                customer.fullName.toLowerCase().includes(searchTerm) ||
+                customer.phone.includes(searchTerm) ||
+                (customer.location && customer.location.toLowerCase().includes(searchTerm))
+            );
+
+            if (statusFilter === 'pending') {
+                filteredCustomers = filteredCustomers.filter(customer => 
+                    parseFloat(customer.amountRemaining || 0) > 0
+                );
+            } else if (statusFilter === 'paid') {
+                filteredCustomers = filteredCustomers.filter(customer => 
+                    parseFloat(customer.amountRemaining || 0) === 0 && parseFloat(customer.totalAmount || 0) > 0
+                );
+            }
+
+            renderCustomers(filteredCustomers);
+        }
+
+        // Calculate remaining amount
+        function calculateRemaining() {
+            const totalAmount = parseFloat(document.querySelector('input[name="totalAmount"]').value) || 0;
+            const amountPaid = parseFloat(document.querySelector('input[name="amountPaid"]').value) || 0;
+            const remaining = Math.max(0, totalAmount - amountPaid);
+            document.querySelector('input[name="amountRemaining"]').value = remaining.toFixed(2);
+        }
+
+        // Delete customer
+        function deleteCustomer(customerId) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                customers = customers.filter(c => c.id !== customerId);
+                localStorage.setItem('vidashCustomers', JSON.stringify(customers));
+                hideCustomerDetails();
+                updateStats();
+                renderCustomers();
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975da73ba3c99339',t:'MTc1NjMxOTU2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

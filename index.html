@@ -21,6 +21,9 @@
                         primary: '#6366f1',
                         secondary: '#ec4899',
                         accent: '#f59e0b'
+                    },
+                    screens: {
+                        'xs': '475px',
                     }
                 }
             }
@@ -53,6 +56,48 @@
         .install-prompt:hover {
             background: #5856eb;
         }
+        
+        /* Mobile responsive improvements */
+        @media (max-width: 640px) {
+            .modal-content {
+                margin: 0.5rem;
+                max-height: calc(100vh - 1rem);
+                border-radius: 1rem;
+            }
+            
+            .customer-card {
+                padding: 1rem;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+            }
+            
+            .form-section {
+                padding: 1rem;
+            }
+        }
+        
+        /* Ensure proper touch targets on mobile */
+        @media (max-width: 768px) {
+            button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            input, select, textarea {
+                min-height: 44px;
+            }
+        }
+        
+        /* Hide scrollbars but keep functionality */
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -63,31 +108,32 @@
 
     <!-- Header -->
     <header class="gradient-bg text-white shadow-2xl">
-        <div class="container mx-auto px-4 py-6">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
-                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+        <div class="container mx-auto px-3 sm:px-4 py-4 sm:py-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
                         </svg>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold">VIDASH LINK FASHION</h1>
-                        <p class="text-white text-opacity-80 text-sm">Customer Management System</p>
+                        <h1 class="text-lg sm:text-xl lg:text-2xl font-bold leading-tight">VIDASH LINK FASHION</h1>
+                        <p class="text-white text-opacity-80 text-xs sm:text-sm">Customer Management System</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <button onclick="showAddCustomer()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <div class="flex items-center space-x-2 sm:space-x-3 w-full sm:w-auto">
+                    <button onclick="showAddCustomer()" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-3 sm:px-4 lg:px-6 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-1 sm:space-x-2 text-sm sm:text-base flex-1 sm:flex-none justify-center">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
                         </svg>
-                        <span>Add Customer</span>
+                        <span class="hidden xs:inline">Add Customer</span>
+                        <span class="xs:hidden">Add</span>
                     </button>
-                    <button onclick="logout()" class="bg-red-500 bg-opacity-80 hover:bg-opacity-100 px-4 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-2" title="Logout">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <button onclick="logout()" class="bg-red-500 bg-opacity-80 hover:bg-opacity-100 px-3 sm:px-4 py-2 sm:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center space-x-1 sm:space-x-2 text-sm sm:text-base" title="Logout">
+                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
                         </svg>
-                        <span>Logout</span>
+                        <span class="hidden sm:inline">Logout</span>
                     </button>
                 </div>
             </div>
@@ -95,43 +141,43 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-3 sm:px-4 py-4 sm:py-8">
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg card-hover stat-card">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-500 text-sm font-medium">Total Customers</p>
-                        <p class="text-3xl font-bold text-gray-800" id="totalCustomers">0</p>
+                        <p class="text-2xl sm:text-3xl font-bold text-gray-800" id="totalCustomers">0</p>
                     </div>
-                    <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary bg-opacity-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                         </svg>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg card-hover stat-card">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-500 text-sm font-medium">Pending Payments</p>
-                        <p class="text-3xl font-bold text-gray-800" id="pendingPayments">0</p>
+                        <p class="text-2xl sm:text-3xl font-bold text-gray-800" id="pendingPayments">0</p>
                     </div>
-                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
                         </svg>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-2xl p-6 shadow-lg card-hover">
+            <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg card-hover stat-card sm:col-span-2 lg:col-span-1">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-gray-500 text-sm font-medium">This Month</p>
-                        <p class="text-3xl font-bold text-gray-800" id="monthlyCustomers">0</p>
+                        <p class="text-2xl sm:text-3xl font-bold text-gray-800" id="monthlyCustomers">0</p>
                     </div>
-                    <div class="w-12 h-12 bg-accent bg-opacity-10 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-accent bg-opacity-10 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-accent" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </div>
@@ -140,17 +186,17 @@
         </div>
 
         <!-- Search and Filter -->
-        <div class="bg-white rounded-2xl p-6 shadow-lg mb-8">
-            <div class="flex flex-col md:flex-row gap-4">
+        <div class="bg-white rounded-2xl p-4 sm:p-6 shadow-lg mb-6 sm:mb-8">
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <div class="flex-1">
-                    <input type="text" id="searchInput" placeholder="Search customers..." class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all">
+                    <input type="text" id="searchInput" placeholder="Search customers..." class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-sm sm:text-base">
                 </div>
-                <select id="statusFilter" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                <select id="statusFilter" class="px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                     <option value="">All Customers</option>
                     <option value="pending">Pending Payment</option>
                     <option value="paid">Fully Paid</option>
                 </select>
-                <button onclick="searchCustomers()" class="bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300">
+                <button onclick="searchCustomers()" class="bg-primary hover:bg-primary-600 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base">
                     Search
                 </button>
             </div>
@@ -158,15 +204,15 @@
 
         <!-- Customer List -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800">Customer Database</h2>
+            <div class="p-4 sm:p-6 border-b border-gray-200">
+                <h2 class="text-lg sm:text-xl font-bold text-gray-800">Customer Database</h2>
             </div>
             <div id="customerList" class="divide-y divide-gray-200">
-                <div class="p-8 text-center text-gray-500">
-                    <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                <div class="p-6 sm:p-8 text-center text-gray-500">
+                    <svg class="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                     </svg>
-                    <p class="text-lg font-medium">No customers yet</p>
+                    <p class="text-base sm:text-lg font-medium">No customers yet</p>
                     <p class="text-sm">Add your first customer to get started</p>
                 </div>
             </div>
@@ -174,224 +220,224 @@
     </main>
 
     <!-- Add/Edit Customer Modal -->
-    <div id="addCustomerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
-            <div class="p-6 border-b border-gray-200">
+    <div id="addCustomerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-2 sm:p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto hide-scrollbar modal-content">
+            <div class="p-4 sm:p-6 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold text-gray-800">Add New Customer</h3>
-                    <button onclick="hideAddCustomer()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">Add New Customer</h3>
+                    <button onclick="hideAddCustomer()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
                 </div>
             </div>
-            <form id="customerForm" class="p-6 space-y-6">
+            <form id="customerForm" class="p-4 sm:p-6 space-y-4 sm:space-y-6 form-section">
                 <!-- Personal Information -->
                 <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Personal Information</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Personal Information</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
-                            <input type="text" name="fullName" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            <input type="text" name="fullName" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number *</label>
-                            <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                         </div>
-                        <div class="md:col-span-2">
+                        <div class="sm:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                            <input type="text" name="location" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="City, State or Address">
+                            <input type="text" name="location" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base" placeholder="City, State or Address">
                         </div>
                     </div>
                 </div>
 
                 <!-- Body Measurements -->
                 <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Body Measurements (inches)</h4>
+                    <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Body Measurements (inches)</h4>
                     
                     <!-- Bust & Chest Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Bust & Chest</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Bust & Chest</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Over-Bust</label>
-                                <input type="number" name="overBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="overBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Breast</label>
-                                <input type="number" name="breast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="breast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Under Breast</label>
-                                <input type="number" name="underBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="underBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Across Chest</label>
-                                <input type="number" name="acrossChest" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="acrossChest" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Nip</label>
-                                <input type="number" name="nipToNip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="nipToNip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Bra Cup Size</label>
-                                <input type="text" name="braCupSize" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="e.g. 34C">
+                                <input type="text" name="braCupSize" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base" placeholder="e.g. 34C">
                             </div>
                         </div>
                     </div>
 
                     <!-- Shoulder Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Shoulder & Back</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Shoulder & Back</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Shoulder</label>
-                                <input type="number" name="shoulderToShoulder" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToShoulder" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Across Back</label>
-                                <input type="number" name="acrossBack" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="acrossBack" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Neck</label>
-                                <input type="number" name="neck" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="neck" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                         </div>
                     </div>
 
                     <!-- Waist & Hip Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Waist & Hip</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Waist & Hip</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Upper Waist</label>
-                                <input type="number" name="upperWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="upperWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Waist</label>
-                                <input type="number" name="waist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="waist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Lower Waist</label>
-                                <input type="number" name="lowerWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="lowerWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Hip</label>
-                                <input type="number" name="hip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="hip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Buttocks Breath</label>
-                                <input type="number" name="buttocksBreath" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="buttocksBreath" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                         </div>
                     </div>
 
                     <!-- Length Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Length Measurements</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Length Measurements</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Blouse Length Circumference</label>
-                                <input type="number" name="blouseLengthCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="blouseLengthCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Over-Bust</label>
-                                <input type="number" name="shoulderToOverBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToOverBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Nipple</label>
-                                <input type="number" name="shoulderToNipple" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToNipple" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Under-Breast</label>
-                                <input type="number" name="shoulderToUnderBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToUnderBreast" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Short D Length</label>
-                                <input type="number" name="shoulderToShortDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToShortDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Long D Length</label>
-                                <input type="number" name="shoulderToLongDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToLongDLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Waist</label>
-                                <input type="number" name="shoulderToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Shoulder to Cleavage</label>
-                                <input type="number" name="shoulderToCleavage" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="shoulderToCleavage" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Back to Waist</label>
-                                <input type="number" name="backToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="backToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Back to Blouse</label>
-                                <input type="number" name="backToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="backToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Skirt Length</label>
-                                <input type="number" name="skirtLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="skirtLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                         </div>
                     </div>
 
                     <!-- Arm & Hand Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Arm & Hand</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Arm & Hand</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Arm Hole to Waist</label>
-                                <input type="number" name="armHoleToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="armHoleToWaist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Arm Hole to Blouse</label>
-                                <input type="number" name="armHoleToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="armHoleToBlouse" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Arm Circumference</label>
-                                <input type="number" name="armCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="armCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Arm to Wrist</label>
-                                <input type="number" name="armToWrist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="armToWrist" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Sleeve Length</label>
-                                <input type="number" name="sleeveLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="sleeveLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                         </div>
                     </div>
 
                     <!-- Lower Body Measurements -->
-                    <div class="mb-6">
-                        <h5 class="text-md font-medium text-gray-700 mb-3">Lower Body</h5>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="mb-4 sm:mb-6">
+                        <h5 class="text-sm sm:text-md font-medium text-gray-700 mb-3">Lower Body</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Under-Bust</label>
-                                <input type="number" name="nipToUnderBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="nipToUnderBust" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Nip to Blouse Length</label>
-                                <input type="number" name="nipToBlouseLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="nipToBlouseLength" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Waist to Hip</label>
-                                <input type="number" name="waistToHip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="waistToHip" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Waist to Calf</label>
-                                <input type="number" name="waistToCalf" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="waistToCalf" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Knee Circumference</label>
-                                <input type="number" name="kneeCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="kneeCircumference" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Ankle</label>
-                                <input type="number" name="ankle" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <input type="number" name="ankle" step="0.5" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                             </div>
                         </div>
                     </div>
@@ -399,30 +445,30 @@
 
                 <!-- Payment Information -->
                 <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Payment Information</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Payment Information</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Total Amount</label>
-                            <input type="number" name="totalAmount" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="0.00" oninput="calculateRemaining()">
+                            <input type="number" name="totalAmount" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base" placeholder="0.00" oninput="calculateRemaining()">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Amount Paid</label>
-                            <input type="number" name="amountPaid" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="0.00" oninput="calculateRemaining()">
+                            <input type="number" name="amountPaid" step="0.01" min="0" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base" placeholder="0.00" oninput="calculateRemaining()">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Amount Remaining</label>
-                            <input type="number" name="amountRemaining" step="0.01" readonly class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-600 outline-none" placeholder="0.00">
+                            <input type="number" name="amountRemaining" step="0.01" readonly class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50 text-gray-600 outline-none text-sm sm:text-base" placeholder="0.00">
                         </div>
                     </div>
                 </div>
 
                 <!-- Additional Details -->
                 <div>
-                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Additional Details</h4>
+                    <h4 class="text-base sm:text-lg font-semibold text-gray-800 mb-3 sm:mb-4">Additional Details</h4>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Style</label>
-                            <select name="preferredStyle" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                            <select name="preferredStyle" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                                 <option value="">Select style...</option>
                                 <option value="casual">Casual</option>
                                 <option value="formal">Formal</option>
@@ -433,17 +479,17 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Special Notes</label>
-                            <textarea name="notes" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none resize-none" placeholder="Any special requirements or notes..."></textarea>
+                            <textarea name="notes" rows="3" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none resize-none text-sm sm:text-base" placeholder="Any special requirements or notes..."></textarea>
                         </div>
                     </div>
                 </div>
 
                 <!-- Form Actions -->
                 <div class="flex flex-col sm:flex-row gap-3 pt-4">
-                    <button type="button" onclick="hideAddCustomer()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
+                    <button type="button" onclick="hideAddCustomer()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all text-sm sm:text-base">
                         Cancel
                     </button>
-                    <button type="submit" class="flex-1 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                    <button type="submit" class="flex-1 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base">
                         Save Customer
                     </button>
                 </div>
@@ -452,46 +498,46 @@
     </div>
 
     <!-- Customer Details Modal -->
-    <div id="customerDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
-            <div class="p-6 border-b border-gray-200">
+    <div id="customerDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-2 sm:p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-screen overflow-y-auto hide-scrollbar modal-content">
+            <div class="p-4 sm:p-6 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold text-gray-800">Customer Details</h3>
-                    <button onclick="hideCustomerDetails()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">Customer Details</h3>
+                    <button onclick="hideCustomerDetails()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
                 </div>
             </div>
-            <div id="customerDetailsContent" class="p-6">
+            <div id="customerDetailsContent" class="p-4 sm:p-6">
                 <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
     <!-- Checkout Modal -->
-    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-md w-full">
-            <div class="p-6 border-b border-gray-200">
+    <div id="checkoutModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-2 sm:p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full modal-content">
+            <div class="p-4 sm:p-6 border-b border-gray-200">
                 <div class="flex items-center justify-between">
-                    <h3 class="text-xl font-bold text-gray-800">Process Payment</h3>
-                    <button onclick="hideCheckout()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-800">Process Payment</h3>
+                    <button onclick="hideCheckout()" class="text-gray-400 hover:text-gray-600 transition-colors p-1">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
                 </div>
             </div>
-            <div class="p-6">
+            <div class="p-4 sm:p-6">
                 <div id="checkoutContent">
                     <!-- Content will be populated by JavaScript -->
                 </div>
                 <div class="flex gap-3 mt-6">
-                    <button onclick="hideCheckout()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
+                    <button onclick="hideCheckout()" class="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all text-sm sm:text-base">
                         Cancel
                     </button>
-                    <button onclick="completeCheckout()" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                    <button onclick="completeCheckout()" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base">
                         Complete Payment
                     </button>
                 </div>
@@ -500,26 +546,26 @@
     </div>
 
     <!-- Login Modal -->
-    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl max-w-md w-full">
-            <div class="p-8 text-center">
-                <div class="w-20 h-20 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10 text-primary" fill="currentColor" viewBox="0 0 20 20">
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-md w-full modal-content">
+            <div class="p-6 sm:p-8 text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10 text-primary" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
-                <p class="text-gray-600 mb-6">Please enter your credentials to access the customer management system</p>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
+                <p class="text-gray-600 mb-6 text-sm sm:text-base">Please enter your credentials to access the customer management system</p>
                 
                 <form id="loginForm" class="space-y-4">
                     <div>
-                        <input type="text" id="username" placeholder="Username" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                        <input type="text" id="username" placeholder="Username" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                     </div>
                     <div>
-                        <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                        <input type="password" id="password" placeholder="Password" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm sm:text-base">
                     </div>
                     <div id="loginError" class="text-red-600 text-sm hidden">Invalid username or password</div>
-                    <button type="submit" class="w-full bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                    <button type="submit" class="w-full bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base">
                         Login to Admin Panel
                     </button>
                 </form>
@@ -662,145 +708,145 @@
             const hasOutstandingBalance = parseFloat(customer.amountRemaining || 0) > 0;
 
             const content = `
-                <div class="space-y-6">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
-                            <span class="text-2xl font-bold text-primary">${customer.fullName.charAt(0)}</span>
+                <div class="space-y-4 sm:space-y-6">
+                    <div class="flex items-center space-x-3 sm:space-x-4">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
+                            <span class="text-lg sm:text-2xl font-bold text-primary">${customer.fullName.charAt(0)}</span>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold text-gray-800">${customer.fullName}</h4>
-                            <p class="text-gray-600">${customer.phone}</p>
-                            ${customer.location ? `<p class="text-gray-600">${customer.location}</p>` : ''}
+                            <h4 class="text-lg sm:text-xl font-bold text-gray-800">${customer.fullName}</h4>
+                            <p class="text-gray-600 text-sm sm:text-base">${customer.phone}</p>
+                            ${customer.location ? `<p class="text-gray-600 text-sm sm:text-base">${customer.location}</p>` : ''}
                         </div>
                     </div>
 
                     <div>
-                        <h5 class="text-lg font-semibold text-gray-800 mb-3">Measurements</h5>
+                        <h5 class="text-base sm:text-lg font-semibold text-gray-800 mb-3">Measurements</h5>
                         
                         ${(customer.overBust || customer.breast || customer.underBreast || customer.acrossChest || customer.nipToNip || customer.braCupSize) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Bust & Chest</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.overBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Over-Bust</span><p class="font-semibold">${customer.overBust}"</p></div>` : ''}
-                                ${customer.breast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Breast</span><p class="font-semibold">${customer.breast}"</p></div>` : ''}
-                                ${customer.underBreast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Under Breast</span><p class="font-semibold">${customer.underBreast}"</p></div>` : ''}
-                                ${customer.acrossChest ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Across Chest</span><p class="font-semibold">${customer.acrossChest}"</p></div>` : ''}
-                                ${customer.nipToNip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Nip</span><p class="font-semibold">${customer.nipToNip}"</p></div>` : ''}
-                                ${customer.braCupSize ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Bra Cup Size</span><p class="font-semibold">${customer.braCupSize}</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Bust & Chest</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.overBust ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Over-Bust</span><p class="font-semibold text-sm sm:text-base">${customer.overBust}"</p></div>` : ''}
+                                ${customer.breast ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Breast</span><p class="font-semibold text-sm sm:text-base">${customer.breast}"</p></div>` : ''}
+                                ${customer.underBreast ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Under Breast</span><p class="font-semibold text-sm sm:text-base">${customer.underBreast}"</p></div>` : ''}
+                                ${customer.acrossChest ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Across Chest</span><p class="font-semibold text-sm sm:text-base">${customer.acrossChest}"</p></div>` : ''}
+                                ${customer.nipToNip ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Nip to Nip</span><p class="font-semibold text-sm sm:text-base">${customer.nipToNip}"</p></div>` : ''}
+                                ${customer.braCupSize ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Bra Cup Size</span><p class="font-semibold text-sm sm:text-base">${customer.braCupSize}</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${(customer.shoulderToShoulder || customer.acrossBack || customer.neck) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Shoulder & Back</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.shoulderToShoulder ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Shoulder</span><p class="font-semibold">${customer.shoulderToShoulder}"</p></div>` : ''}
-                                ${customer.acrossBack ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Across Back</span><p class="font-semibold">${customer.acrossBack}"</p></div>` : ''}
-                                ${customer.neck ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Neck</span><p class="font-semibold">${customer.neck}"</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Shoulder & Back</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.shoulderToShoulder ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Shoulder</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToShoulder}"</p></div>` : ''}
+                                ${customer.acrossBack ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Across Back</span><p class="font-semibold text-sm sm:text-base">${customer.acrossBack}"</p></div>` : ''}
+                                ${customer.neck ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Neck</span><p class="font-semibold text-sm sm:text-base">${customer.neck}"</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${(customer.upperWaist || customer.waist || customer.lowerWaist || customer.hip || customer.buttocksBreath) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Waist & Hip</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.upperWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Upper Waist</span><p class="font-semibold">${customer.upperWaist}"</p></div>` : ''}
-                                ${customer.waist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist</span><p class="font-semibold">${customer.waist}"</p></div>` : ''}
-                                ${customer.lowerWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Lower Waist</span><p class="font-semibold">${customer.lowerWaist}"</p></div>` : ''}
-                                ${customer.hip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Hip</span><p class="font-semibold">${customer.hip}"</p></div>` : ''}
-                                ${customer.buttocksBreath ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Buttocks Breath</span><p class="font-semibold">${customer.buttocksBreath}"</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Waist & Hip</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.upperWaist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Upper Waist</span><p class="font-semibold text-sm sm:text-base">${customer.upperWaist}"</p></div>` : ''}
+                                ${customer.waist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Waist</span><p class="font-semibold text-sm sm:text-base">${customer.waist}"</p></div>` : ''}
+                                ${customer.lowerWaist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Lower Waist</span><p class="font-semibold text-sm sm:text-base">${customer.lowerWaist}"</p></div>` : ''}
+                                ${customer.hip ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Hip</span><p class="font-semibold text-sm sm:text-base">${customer.hip}"</p></div>` : ''}
+                                ${customer.buttocksBreath ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Buttocks Breath</span><p class="font-semibold text-sm sm:text-base">${customer.buttocksBreath}"</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${(customer.blouseLengthCircumference || customer.shoulderToOverBust || customer.shoulderToNipple || customer.shoulderToUnderBreast || customer.shoulderToShortDLength || customer.shoulderToLongDLength || customer.shoulderToWaist || customer.shoulderToCleavage || customer.backToWaist || customer.backToBlouse || customer.skirtLength) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Length Measurements</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.blouseLengthCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Blouse Length Circumference</span><p class="font-semibold">${customer.blouseLengthCircumference}"</p></div>` : ''}
-                                ${customer.shoulderToOverBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Over-Bust</span><p class="font-semibold">${customer.shoulderToOverBust}"</p></div>` : ''}
-                                ${customer.shoulderToNipple ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Nipple</span><p class="font-semibold">${customer.shoulderToNipple}"</p></div>` : ''}
-                                ${customer.shoulderToUnderBreast ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Under-Breast</span><p class="font-semibold">${customer.shoulderToUnderBreast}"</p></div>` : ''}
-                                ${customer.shoulderToShortDLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Short D Length</span><p class="font-semibold">${customer.shoulderToShortDLength}"</p></div>` : ''}
-                                ${customer.shoulderToLongDLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Long D Length</span><p class="font-semibold">${customer.shoulderToLongDLength}"</p></div>` : ''}
-                                ${customer.shoulderToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Waist</span><p class="font-semibold">${customer.shoulderToWaist}"</p></div>` : ''}
-                                ${customer.shoulderToCleavage ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Shoulder to Cleavage</span><p class="font-semibold">${customer.shoulderToCleavage}"</p></div>` : ''}
-                                ${customer.backToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Back to Waist</span><p class="font-semibold">${customer.backToWaist}"</p></div>` : ''}
-                                ${customer.backToBlouse ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Back to Blouse</span><p class="font-semibold">${customer.backToBlouse}"</p></div>` : ''}
-                                ${customer.skirtLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Skirt Length</span><p class="font-semibold">${customer.skirtLength}"</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Length Measurements</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.blouseLengthCircumference ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Blouse Length Circumference</span><p class="font-semibold text-sm sm:text-base">${customer.blouseLengthCircumference}"</p></div>` : ''}
+                                ${customer.shoulderToOverBust ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Over-Bust</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToOverBust}"</p></div>` : ''}
+                                ${customer.shoulderToNipple ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Nipple</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToNipple}"</p></div>` : ''}
+                                ${customer.shoulderToUnderBreast ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Under-Breast</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToUnderBreast}"</p></div>` : ''}
+                                ${customer.shoulderToShortDLength ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Short D Length</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToShortDLength}"</p></div>` : ''}
+                                ${customer.shoulderToLongDLength ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Long D Length</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToLongDLength}"</p></div>` : ''}
+                                ${customer.shoulderToWaist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Waist</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToWaist}"</p></div>` : ''}
+                                ${customer.shoulderToCleavage ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Shoulder to Cleavage</span><p class="font-semibold text-sm sm:text-base">${customer.shoulderToCleavage}"</p></div>` : ''}
+                                ${customer.backToWaist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Back to Waist</span><p class="font-semibold text-sm sm:text-base">${customer.backToWaist}"</p></div>` : ''}
+                                ${customer.backToBlouse ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Back to Blouse</span><p class="font-semibold text-sm sm:text-base">${customer.backToBlouse}"</p></div>` : ''}
+                                ${customer.skirtLength ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Skirt Length</span><p class="font-semibold text-sm sm:text-base">${customer.skirtLength}"</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${(customer.armHoleToWaist || customer.armHoleToBlouse || customer.armCircumference || customer.armToWrist || customer.sleeveLength) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Arm & Hand</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.armHoleToWaist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Hole to Waist</span><p class="font-semibold">${customer.armHoleToWaist}"</p></div>` : ''}
-                                ${customer.armHoleToBlouse ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Hole to Blouse</span><p class="font-semibold">${customer.armHoleToBlouse}"</p></div>` : ''}
-                                ${customer.armCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm Circumference</span><p class="font-semibold">${customer.armCircumference}"</p></div>` : ''}
-                                ${customer.armToWrist ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Arm to Wrist</span><p class="font-semibold">${customer.armToWrist}"</p></div>` : ''}
-                                ${customer.sleeveLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Sleeve Length</span><p class="font-semibold">${customer.sleeveLength}"</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Arm & Hand</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.armHoleToWaist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Arm Hole to Waist</span><p class="font-semibold text-sm sm:text-base">${customer.armHoleToWaist}"</p></div>` : ''}
+                                ${customer.armHoleToBlouse ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Arm Hole to Blouse</span><p class="font-semibold text-sm sm:text-base">${customer.armHoleToBlouse}"</p></div>` : ''}
+                                ${customer.armCircumference ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Arm Circumference</span><p class="font-semibold text-sm sm:text-base">${customer.armCircumference}"</p></div>` : ''}
+                                ${customer.armToWrist ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Arm to Wrist</span><p class="font-semibold text-sm sm:text-base">${customer.armToWrist}"</p></div>` : ''}
+                                ${customer.sleeveLength ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Sleeve Length</span><p class="font-semibold text-sm sm:text-base">${customer.sleeveLength}"</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${(customer.nipToUnderBust || customer.nipToBlouseLength || customer.waistToHip || customer.waistToCalf || customer.kneeCircumference || customer.ankle) ? `
                         <div class="mb-4">
-                            <h6 class="text-md font-medium text-gray-700 mb-2">Lower Body</h6>
-                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                ${customer.nipToUnderBust ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Under-Bust</span><p class="font-semibold">${customer.nipToUnderBust}"</p></div>` : ''}
-                                ${customer.nipToBlouseLength ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Nip to Blouse Length</span><p class="font-semibold">${customer.nipToBlouseLength}"</p></div>` : ''}
-                                ${customer.waistToHip ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist to Hip</span><p class="font-semibold">${customer.waistToHip}"</p></div>` : ''}
-                                ${customer.waistToCalf ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Waist to Calf</span><p class="font-semibold">${customer.waistToCalf}"</p></div>` : ''}
-                                ${customer.kneeCircumference ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Knee Circumference</span><p class="font-semibold">${customer.kneeCircumference}"</p></div>` : ''}
-                                ${customer.ankle ? `<div class="bg-gray-50 p-3 rounded-lg"><span class="text-sm text-gray-600">Ankle</span><p class="font-semibold">${customer.ankle}"</p></div>` : ''}
+                            <h6 class="text-sm sm:text-md font-medium text-gray-700 mb-2">Lower Body</h6>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                                ${customer.nipToUnderBust ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Nip to Under-Bust</span><p class="font-semibold text-sm sm:text-base">${customer.nipToUnderBust}"</p></div>` : ''}
+                                ${customer.nipToBlouseLength ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Nip to Blouse Length</span><p class="font-semibold text-sm sm:text-base">${customer.nipToBlouseLength}"</p></div>` : ''}
+                                ${customer.waistToHip ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Waist to Hip</span><p class="font-semibold text-sm sm:text-base">${customer.waistToHip}"</p></div>` : ''}
+                                ${customer.waistToCalf ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Waist to Calf</span><p class="font-semibold text-sm sm:text-base">${customer.waistToCalf}"</p></div>` : ''}
+                                ${customer.kneeCircumference ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Knee Circumference</span><p class="font-semibold text-sm sm:text-base">${customer.kneeCircumference}"</p></div>` : ''}
+                                ${customer.ankle ? `<div class="bg-gray-50 p-2 sm:p-3 rounded-lg"><span class="text-xs sm:text-sm text-gray-600">Ankle</span><p class="font-semibold text-sm sm:text-base">${customer.ankle}"</p></div>` : ''}
                             </div>
                         </div>
                         ` : ''}
 
                         ${!(customer.overBust || customer.breast || customer.underBreast || customer.acrossChest || customer.nipToNip || customer.braCupSize || customer.shoulderToShoulder || customer.acrossBack || customer.neck || customer.upperWaist || customer.waist || customer.lowerWaist || customer.hip || customer.buttocksBreath || customer.blouseLengthCircumference || customer.shoulderToOverBust || customer.shoulderToNipple || customer.shoulderToUnderBreast || customer.shoulderToShortDLength || customer.shoulderToLongDLength || customer.shoulderToWaist || customer.shoulderToCleavage || customer.backToWaist || customer.backToBlouse || customer.skirtLength || customer.armHoleToWaist || customer.armHoleToBlouse || customer.armCircumference || customer.armToWrist || customer.sleeveLength || customer.nipToUnderBust || customer.nipToBlouseLength || customer.waistToHip || customer.waistToCalf || customer.kneeCircumference || customer.ankle) ? `
-                        <p class="text-gray-500 text-center py-4">No measurements recorded</p>
+                        <p class="text-gray-500 text-center py-4 text-sm sm:text-base">No measurements recorded</p>
                         ` : ''}
                     </div>
 
                     ${(customer.totalAmount || customer.amountPaid) ? `
                     <div>
-                        <h5 class="text-lg font-semibold text-gray-800 mb-3">Payment Information</h5>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            ${customer.totalAmount ? `<div class="bg-blue-50 p-4 rounded-lg border border-blue-200"><span class="text-sm text-blue-600 font-medium">Total Amount</span><p class="text-xl font-bold text-blue-800">$${parseFloat(customer.totalAmount).toFixed(2)}</p></div>` : ''}
-                            ${customer.amountPaid ? `<div class="bg-green-50 p-4 rounded-lg border border-green-200"><span class="text-sm text-green-600 font-medium">Amount Paid</span><p class="text-xl font-bold text-green-800">$${parseFloat(customer.amountPaid).toFixed(2)}</p></div>` : ''}
-                            ${customer.amountRemaining ? `<div class="bg-orange-50 p-4 rounded-lg border border-orange-200"><span class="text-sm text-orange-600 font-medium">Amount Remaining</span><p class="text-xl font-bold text-orange-800">$${parseFloat(customer.amountRemaining).toFixed(2)}</p></div>` : ''}
+                        <h5 class="text-base sm:text-lg font-semibold text-gray-800 mb-3">Payment Information</h5>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                            ${customer.totalAmount ? `<div class="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-200"><span class="text-xs sm:text-sm text-blue-600 font-medium">Total Amount</span><p class="text-lg sm:text-xl font-bold text-blue-800">$${parseFloat(customer.totalAmount).toFixed(2)}</p></div>` : ''}
+                            ${customer.amountPaid ? `<div class="bg-green-50 p-3 sm:p-4 rounded-lg border border-green-200"><span class="text-xs sm:text-sm text-green-600 font-medium">Amount Paid</span><p class="text-lg sm:text-xl font-bold text-green-800">$${parseFloat(customer.amountPaid).toFixed(2)}</p></div>` : ''}
+                            ${customer.amountRemaining ? `<div class="bg-orange-50 p-3 sm:p-4 rounded-lg border border-orange-200"><span class="text-xs sm:text-sm text-orange-600 font-medium">Amount Remaining</span><p class="text-lg sm:text-xl font-bold text-orange-800">$${parseFloat(customer.amountRemaining).toFixed(2)}</p></div>` : ''}
                         </div>
                     </div>
                     ` : ''}
 
                     ${customer.preferredStyle ? `
                     <div>
-                        <h5 class="text-lg font-semibold text-gray-800 mb-2">Preferred Style</h5>
-                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm font-medium capitalize">${customer.preferredStyle}</span>
+                        <h5 class="text-base sm:text-lg font-semibold text-gray-800 mb-2">Preferred Style</h5>
+                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-xs sm:text-sm font-medium capitalize">${customer.preferredStyle}</span>
                     </div>
                     ` : ''}
 
                     ${customer.notes ? `
                     <div>
-                        <h5 class="text-lg font-semibold text-gray-800 mb-2">Notes</h5>
-                        <p class="text-gray-600 bg-gray-50 p-4 rounded-lg">${customer.notes}</p>
+                        <h5 class="text-base sm:text-lg font-semibold text-gray-800 mb-2">Notes</h5>
+                        <p class="text-gray-600 bg-gray-50 p-3 sm:p-4 rounded-lg text-sm sm:text-base">${customer.notes}</p>
                     </div>
                     ` : ''}
 
-                    <div class="flex gap-3 pt-4">
-                        <button onclick="editCustomer('${customer.id}')" class="flex-1 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                    <div class="flex flex-col sm:flex-row gap-3 pt-4">
+                        <button onclick="editCustomer('${customer.id}')" class="flex-1 bg-primary hover:bg-primary-600 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base">
                             Edit Customer
                         </button>
                         ${hasOutstandingBalance ? `
-                        <button onclick="showCheckout('${customer.id}')" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                        <button onclick="showCheckout('${customer.id}')" class="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold transition-all text-sm sm:text-base">
                             Process Payment
                         </button>
                         ` : ''}
-                        <button onclick="deleteCustomer('${customer.id}')" class="px-6 py-3 border border-red-300 text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all">
+                        <button onclick="deleteCustomer('${customer.id}')" class="px-4 sm:px-6 py-3 border border-red-300 text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all text-sm sm:text-base">
                             Delete
                         </button>
                     </div>
@@ -826,36 +872,36 @@
 
             const content = `
                 <div class="text-center mb-6">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
                         </svg>
                     </div>
-                    <h4 class="text-lg font-bold text-gray-800">${customer.fullName}</h4>
-                    <p class="text-gray-600">${customer.phone}</p>
+                    <h4 class="text-base sm:text-lg font-bold text-gray-800">${customer.fullName}</h4>
+                    <p class="text-gray-600 text-sm sm:text-base">${customer.phone}</p>
                 </div>
 
-                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <div class="bg-gray-50 p-3 sm:p-4 rounded-lg mb-4">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-gray-600">Total Amount:</span>
-                        <span class="font-semibold">$${parseFloat(customer.totalAmount || 0).toFixed(2)}</span>
+                        <span class="text-gray-600 text-sm sm:text-base">Total Amount:</span>
+                        <span class="font-semibold text-sm sm:text-base">$${parseFloat(customer.totalAmount || 0).toFixed(2)}</span>
                     </div>
                     <div class="flex justify-between items-center mb-2">
-                        <span class="text-gray-600">Already Paid:</span>
-                        <span class="font-semibold text-green-600">$${parseFloat(customer.amountPaid || 0).toFixed(2)}</span>
+                        <span class="text-gray-600 text-sm sm:text-base">Already Paid:</span>
+                        <span class="font-semibold text-green-600 text-sm sm:text-base">$${parseFloat(customer.amountPaid || 0).toFixed(2)}</span>
                     </div>
                     <div class="border-t pt-2 mt-2">
                         <div class="flex justify-between items-center">
-                            <span class="text-gray-800 font-medium">Amount Due:</span>
-                            <span class="font-bold text-xl text-orange-600">$${remainingAmount.toFixed(2)}</span>
+                            <span class="text-gray-800 font-medium text-sm sm:text-base">Amount Due:</span>
+                            <span class="font-bold text-lg sm:text-xl text-orange-600">$${remainingAmount.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Payment Amount</label>
-                    <input type="number" id="paymentAmount" step="0.01" min="0" max="${remainingAmount}" value="${remainingAmount}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none">
-                    <p class="text-sm text-gray-500 mt-1">Enter the amount being paid (up to $${remainingAmount.toFixed(2)})</p>
+                    <input type="number" id="paymentAmount" step="0.01" min="0" max="${remainingAmount}" value="${remainingAmount}" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-sm sm:text-base">
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">Enter the amount being paid (up to $${remainingAmount.toFixed(2)})</p>
                 </div>
             `;
 
@@ -1032,11 +1078,11 @@
             
             if (customersToRender.length === 0) {
                 customerList.innerHTML = `
-                    <div class="p-8 text-center text-gray-500">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                    <div class="p-6 sm:p-8 text-center text-gray-500">
+                        <svg class="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                         </svg>
-                        <p class="text-lg font-medium">No customers found</p>
+                        <p class="text-base sm:text-lg font-medium">No customers found</p>
                         <p class="text-sm">Try adjusting your search or add a new customer</p>
                     </div>
                 `;
@@ -1048,24 +1094,24 @@
                 const isPaid = remainingAmount === 0 && parseFloat(customer.totalAmount || 0) > 0;
                 
                 return `
-                <div class="p-6 hover:bg-gray-50 transition-colors cursor-pointer" onclick="showCustomerDetails('${customer.id}')">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
-                                <span class="text-lg font-bold text-primary">${customer.fullName.charAt(0)}</span>
+                <div class="p-4 sm:p-6 hover:bg-gray-50 transition-colors cursor-pointer customer-card" onclick="showCustomerDetails('${customer.id}')">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary bg-opacity-10 rounded-full flex items-center justify-center">
+                                <span class="text-base sm:text-lg font-bold text-primary">${customer.fullName.charAt(0)}</span>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-800">${customer.fullName}</h4>
-                                <p class="text-gray-600 text-sm">${customer.phone}</p>
-                                <div class="flex items-center gap-2 mt-1">
+                                <h4 class="font-semibold text-gray-800 text-sm sm:text-base">${customer.fullName}</h4>
+                                <p class="text-gray-600 text-xs sm:text-sm">${customer.phone}</p>
+                                <div class="flex flex-wrap items-center gap-1 sm:gap-2 mt-1">
                                     ${customer.preferredStyle ? `<span class="inline-block bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs capitalize">${customer.preferredStyle}</span>` : ''}
                                     ${customer.totalAmount ? `<span class="inline-block ${isPaid ? 'bg-green-100 text-green-600' : remainingAmount > 0 ? 'bg-orange-100 text-orange-600' : 'bg-gray-100 text-gray-600'} px-2 py-1 rounded text-xs font-medium">${isPaid ? 'Paid in Full' : remainingAmount > 0 ? `$${remainingAmount.toFixed(2)} Due` : 'No Payment'}</span>` : ''}
                                 </div>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <p class="text-sm text-gray-500">Added</p>
-                            <p class="text-sm font-medium text-gray-700">${new Date(customer.dateAdded).toLocaleDateString()}</p>
+                        <div class="text-left sm:text-right">
+                            <p class="text-xs sm:text-sm text-gray-500">Added</p>
+                            <p class="text-xs sm:text-sm font-medium text-gray-700">${new Date(customer.dateAdded).toLocaleDateString()}</p>
                             ${remainingAmount > 0 ? `<button onclick="event.stopPropagation(); showCheckout('${customer.id}')" class="mt-2 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-medium transition-all">Pay Now</button>` : ''}
                         </div>
                     </div>
@@ -1117,5 +1163,5 @@
             }
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975da73ba3c99339',t:'MTc1NjMxOTU2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975de79935bd9334',t:'MTc1NjMyMjIwMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
